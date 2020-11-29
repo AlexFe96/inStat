@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Provider } from 'mobx-react';
 import './App.css';
+import { TGlobalStore } from './types/GlobalStore'
+import ToDoStore from './stores/TodoStore';
+import ToDoComponent from './components/ToDoComponent';
+import ToDoSummary from './components/ToDoSummary';
 
-function App() {
+const AppStore: TGlobalStore = {
+  toDoStore: new ToDoStore(),
+}
+
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider {...AppStore}>
+        <ToDoComponent />
+        <ToDoSummary />
+      </Provider>
     </div>
   );
 }
 
-export default App;
+export default App
